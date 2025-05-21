@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicatie de analiza a recenziilor</title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+  <!-- <div class="container" style="background-color: white;"> <header class="d-flex justify-content-center py-3"> <ul class="nav nav-pills"> <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li> <li class="nav-item"><a href="#" class="nav-link">Features</a></li> <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li> <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> <li class="nav-item"><a href="#" class="nav-link">About</a></li> </ul> </header> </div> -->
+
+  <div class="loader-container" id="loader-container">
+    <div class="loader"></div>
+  </div>
+
+    <div class="chart-container hidden" id="chart-pie">
+      <canvas id="myPieChart"></canvas>
+    </div>
+
+    <div class="topic-description hidden p-3 bg-white rounded shadow-sm" id="topic-description">
+
+        <!-- Title and Dropdown Row -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+            <h5 class="mb-0 fw-bold text-dark">💡 Rezumatul recenziilor</h5>
+          
+            <div class="dropdown mt-2 mt-md-0">
+              <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Emoție: <span id="selected-emotion"></span>
+              </button>
+          
+              <div class="dropdown-menu border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px">
+                <form class="p-2 mb-2 border-bottom">
+                  <input type="search" class="form-control" autocomplete="off" placeholder="Type to filter...">
+                </form>
+                <ul class="list-unstyled mb-0 scrollable-dropdown">
+                    <!-- content will be dinamically inserted here -->
+                </ul>
+              </div>
+            </div>
+        </div>          
+      
+        <!-- Topic List -->
+        <div class="list-group" id="emotion-summary-list">
+            <!-- Items will be injected here -->
+          </div>
+
+      </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
