@@ -9,46 +9,146 @@
 </head>
 <body>
 
-  <!-- <div class="container" style="background-color: white;"> <header class="d-flex justify-content-center py-3"> <ul class="nav nav-pills"> <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li> <li class="nav-item"><a href="#" class="nav-link">Features</a></li> <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li> <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> <li class="nav-item"><a href="#" class="nav-link">About</a></li> </ul> </header> </div> -->
+  <div class="container hidden" id="nav-bar" style="background-color: white;"> <header class="d-flex justify-content-center py-3"> <ul class="nav nav-pills"> <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li> <li class="nav-item"><a href="#" class="nav-link">Features</a></li> <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> <li class="nav-item"><a href="#" class="nav-link">About</a></li> </ul> </header> </div>
+
+
+<!-- Bootstrap Icons SVG Sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="bar-chart-fill" viewBox="0 0 16 16">
+    <path d="M0 0h1v15h15v1H0V0zM10 10V3h2v7h-2zm-3 2V5h2v7H7zm-3 2V7h2v7H4z"/>
+  </symbol>
+  <symbol id="emoji-smile-fill" viewBox="0 0 16 16">
+    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.285 12.433a.5.5 0 0 1 .683-.183 5.507 5.507 0 0 0 6.064 0 .5.5 0 1 1 .5.866 6.507 6.507 0 0 1-7.247 0 .5.5 0 0 1-.183-.683zM7 6.5c0 .276-.224.5-.5.5s-.5-.224-.5-.5S6.224 6 6.5 6s.5.224.5.5zm3 0c0 .276-.224.5-.5.5s-.5-.224-.5-.5S9.224 6 9.5 6s.5.224.5.5z"/>
+  </symbol>
+  <symbol id="calendar-event-fill" viewBox="0 0 16 16">
+    <path d="M4 .5a.5.5 0 0 1 .5.5V2h6V1a.5.5 0 0 1 1 0V2h1a2 2 0 0 1 2 2v1H1V4a2 2 0 0 1 2-2h1V1a.5.5 0 0 1 .5-.5zM1 14V6h14v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-7a.5.5 0 0 0-1 0v3a.5.5 0 0 0 1 0V7z"/>
+  </symbol>
+  <symbol id="hand-thumbs-up-fill" viewBox="0 0 16 16">
+    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325c.39.098.885.37 1.066.56.25.255.401.61.488 1.02.122.582.327 1.202.624 1.668.113.173.223.3.308.383.4.387.49 1.2.138 1.878l-.262.518c-.12.236-.175.356-.207.445a1.973 1.973 0 0 0-.078.247 9.22 9.22 0 0 1-.3 1.233c-.288.828-.887 1.559-1.428 1.933-.181.123-.312.238-.438.35-.21.189-.408.386-.542.599a3.287 3.287 0 0 0-.35.774 5.376 5.376 0 0 0-.173 1.15c0 .293.052.647.11.945.016.084.03.158.045.225.135.64.574 1.318.678 2.181.125.993.148 2.258.148 2.636 0 .247-.004.42-.008.507a.5.5 0 0 1-.564.492L4.992 15.86a.5.5 0 0 1-.41-.493l-.007-.546a6.606 6.606 0 0 0-.873-3.21.5.5 0 0 1-.042-.038l-.373-.337a1.5 1.5 0 0 1-.491-1.194v-2.31c0-.591.275-1.083.553-1.376a.5.5 0 0 1 .038-.04l.004-.003a1.873 1.873 0 0 1 .142-.124c.036-.03.07-.057.105-.081a1.374 1.374 0 0 1 .288-.154 2.5 2.5 0 0 1 .354-.1c.232-.04.513-.059.806-.082a6.753 6.753 0 0 0 .417-.047l.015-.002z"/>
+  </symbol>
+</svg>
+
+<div class="container py-5 hidden" id="statistics">
+  <div class="row g-5 row-cols-1 row-cols-lg-3">
+
+    <!-- Analyzed Reviews -->
+    <div class="feature col">
+      <div class="feature-icon bg-primary bg-gradient text-white">
+        <svg class="bi"><use xlink:href="#bar-chart-fill"/></svg>
+      </div>
+      <h2>Analyzed Reviews</h2>
+      <p>We analyzed 527 user reviews to extract insights on emotion, timing, and sentiment trends.</p>
+    </div>
+
+    <!-- Top Emotion -->
+    <div class="feature col">
+      <div class="feature-icon bg-warning bg-gradient text-white">
+        <svg class="bi"><use xlink:href="#emoji-smile-fill"/></svg>
+      </div>
+      <h2>Top Emotion</h2>
+      <p>Joy was the most common emotion, appearing in 312 reviews (59%).</p>
+    </div>
+
+    <!-- Peak Review Time -->
+    <div class="feature col">
+      <div class="feature-icon bg-info bg-gradient text-white">
+        <svg class="bi"><use xlink:href="#calendar-event-fill"/></svg>
+      </div>
+      <h2>Peak Activity</h2>
+      <p>Most reviews were submitted in July 2024, indicating a spike in user engagement.</p>
+    </div>
+
+  </div>
+</div>
 
   <div class="loader-container" id="loader-container">
     <div class="loader"></div>
   </div>
 
-    <div class="chart-container hidden" id="chart-pie">
-      <canvas id="myPieChart"></canvas>
-    </div>
+      <!-- <div class="chart-container" id="chart-line">
+        <canvas id="myLineChart"></canvas>
+      </div> -->
 
-    <div class="topic-description hidden p-3 bg-white rounded shadow-sm" id="topic-description">
+      <div class="container my-5 hidden" id="lda-chart">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 p-3 bg-white">
+          <h4 class="mb-0">LDA Topics</h4>
 
-        <!-- Title and Dropdown Row -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
-            <h5 class="mb-0 fw-bold text-dark">💡 Rezumatul recenziilor</h5>
-          
-            <div class="dropdown mt-2 mt-md-0">
-              <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Emoție: <span id="selected-emotion"></span>
-              </button>
-          
-              <div class="dropdown-menu border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px">
-                <form class="p-2 mb-2 border-bottom">
-                  <input type="search" class="form-control" autocomplete="off" placeholder="Type to filter...">
-                </form>
-                <ul class="list-unstyled mb-0 scrollable-dropdown">
-                    <!-- content will be dinamically inserted here -->
-                </ul>
-              </div>
+          <!-- Dropdown START -->
+          <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Emoție: <span id="selected-emotion-lda-chart"></span>
+            </button>
+
+            <div class="dropdown-menu border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px">
+              <form class="p-2 mb-2 border-bottom">
+                <input type="search" class="form-control" autocomplete="off" placeholder="Type to filter...">
+              </form>
+              <ul class="list-unstyled mb-0 scrollable-dropdown">
+                <!-- dynamic content -->
+              </ul>
             </div>
-        </div>          
-      
-        <!-- Topic List -->
-        <div class="list-group" id="emotion-summary-list">
-            <!-- Items will be injected here -->
           </div>
 
+            <!-- Topic Dropdown -->
+          <div class="dropdown" id="topic-dropdown-container">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Topic: <span id="selected-topic-lda-chart"></span>
+            </button>
+            <ul class="dropdown-menu lda-dropdown" id="lda-topic-dropdown">
+              <!-- topics will be injected here -->
+            </ul>
+          </div>
+          <!-- Dropdown END -->
+        </div>
+
+        <div class="chart-container" style="width: 100%;">
+          <canvas id="ldaChart"></canvas>
+        </div>
       </div>
-        
-    </div>
+
+
+      <div class="container hidden my-5 px-3 px-md-4" id="topic-wrapper">
+        <div class="d-flex flex-column flex-md-row gap-4">
+
+          <!-- Pie Chart: takes 1/3 on desktop, full width on mobile -->
+          <div class="flex-shrink-0" style="flex: 1.5;">
+            <div class="chart-container bg-white rounded shadow-sm p-4 h-100" id="chart-pie">
+              <canvas id="myPieChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Topic Summary: takes 2/3 on desktop, full width on mobile -->
+          <div class="flex-shrink-0" style="flex: 1.5;">
+            <div class="topic-description bg-white rounded shadow-sm p-4 h-100">
+
+              <!-- Title and Dropdown -->
+              <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                <h5 class="mb-0 fw-bold text-dark">💡 Rezumatul recenziilor</h5>
+
+                <div class="dropdown mt-2 mt-md-0">
+                  <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Emoție: <span id="selected-emotion"></span>
+                  </button>
+
+                  <div class="dropdown-menu border-0 pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px">
+                    <form class="p-2 mb-2 border-bottom">
+                      <input type="search" class="form-control" autocomplete="off" placeholder="Type to filter...">
+                    </form>
+                    <ul class="list-unstyled mb-0 scrollable-dropdown">
+                      <!-- dynamic content -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Topic list -->
+              <div class="list-group" id="emotion-summary-list"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

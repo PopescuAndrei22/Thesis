@@ -6,6 +6,8 @@ pandas
 textblob
 transformers
 torch
+setfit
+torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 nltk
 scikit-learn

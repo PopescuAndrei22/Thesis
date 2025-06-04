@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from groq import Groq
 from utils.log_config import setup_logger
 import json
+import re
 
 load_dotenv()
 
@@ -24,23 +25,43 @@ class TopicSummarizer:
         self.client = Groq(api_key=self.api_key)
         logger.info("Groq client initialized successfully.")
 
-    def generate_summary(self, topics, emotion) -> list:
+    def extract_json_block(self, text: str) -> str:
+        match = re.search(r'```json(.*?)```', text, re.DOTALL)
+        if match:
+            return match.group(1).strip()
+        else:
+            raise ValueError("No valid JSON block found")
+    
+    def generate_summary(self, emotion_topics: dict) -> dict:
 
         prompt = (
-            f"In the context of reviews of an entity, you are given an emotion and a list of topics generated with the LDA algorithm.\n"
-            f"Emotion: {emotion}\n"
-            f"Topics and keywords for each topic:\n"
-            + "\n".join(
-                f"{i+1}. {', '.join(words)}" for i, words in enumerate(topics)
-            )
-            + "\n\nFor each topic above, generate:\n"
-            "- A short topic name (1-3 words)\n"
-            "- A brief description about the entity, based on that topic and the given emotion of the reviews.\n"
-            "Format the response as a Python list of dictionaries. Each dictionary should have two keys: 'topic_name' and 'summary'.\n"
-            "Do not include any special characters outside the Python syntax.\n"
-            "Example output format:\n"
-            "[{'topic_name': 'Customer service', 'summary': 'The user feels frustrated with the slow and unhelpful service.'}"
-            "  {'topic_name': 'Product quality', 'summary': 'The user is disappointed with the poor build quality.'}]"
+            "You are analyzing customer reviews. For each emotion below, topics were extracted using LDA.\n"
+            "Generate a summary for each emotion, consisting of short topic names and descriptions.\n"
+            "Respond in valid **JSON format**. Each emotion should map to a list of topic summaries.\n"
+            "Each topic summary must have two keys: \"topic_name\" and \"summary\".\n"
+            "Use only double quotes for all strings and keys (as required in JSON).\n"
+            "Wrap your response in a code block marked with ```json for easy parsing.\n\n"
+        )
+
+        for emotion, topics in emotion_topics.items():
+            prompt += f"Emotion: {emotion}\n"
+            for i, words in enumerate(topics):
+                prompt += f"{i+1}. {', '.join(words)}\n"
+            prompt += "\n"
+
+        prompt += (
+            "Example format:\n"
+            "```json\n"
+            "{\n"
+            "  \"joy\": [\n"
+            "    {\"topic_name\": \"Helpful staff\", \"summary\": \"Users liked the polite and helpful staff.\"},\n"
+            "    {\"topic_name\": \"Clean rooms\", \"summary\": \"Guests appreciated the cleanliness.\"}\n"
+            "  ],\n"
+            "  \"anger\": [\n"
+            "    {\"topic_name\": \"Long wait\", \"summary\": \"Users complained about waiting times.\"}\n"
+            "  ]\n"
+            "}\n"
+            "```"
         )
 
         try:
@@ -51,7 +72,8 @@ class TopicSummarizer:
             )
             summary = response.choices[0].message.content
             logger.info("Received response from Groq API.")
-            return summary
+            json_str = self.extract_json_block(summary)
+            return json.loads(json_str)
 
         except Exception as e:
             logger.error(f"{type(e).__name__}: {e}")

@@ -1,11 +1,24 @@
 from textblob import TextBlob
 from transformers import pipeline
+import torch
+from datasets import Dataset
 
 goemotions_pipeline = pipeline(
     "text-classification",
     model="joeddav/distilbert-base-uncased-go-emotions-student",
     top_k=1,
-    truncation=True
+    truncation=True,
+    batch_size=256,
+    device=0
+)
+
+emotion_pipeline = pipeline(
+    "text-classification",
+    model="bhadresh-savani/distilbert-base-uncased-emotion",
+    top_k=1,
+    truncation=True,
+    batch_size=64,
+    device=0
 )
 
 def sentiment_textblob(reviews: list[str]) -> dict[str, list[str]]:
@@ -24,11 +37,25 @@ def sentiment_textblob(reviews: list[str]) -> dict[str, list[str]]:
 
 def sentiment_goemotions(reviews: list[str]) -> dict[str, list[str]]:
     result = {}
+    predictions = goemotions_pipeline(reviews)
 
-    for review in reviews:
-        emotion = goemotions_pipeline(review)[0][0]["label"]
-        if emotion not in result:
-            result[emotion] = []
-        result[emotion].append(review)
+    for review, pred in zip(reviews, predictions):
+        emotion = pred[0]["label"]
+        result.setdefault(emotion, []).append(review)
 
     return result
+
+def sentiment_fast_emotion(reviews: list[str]) -> dict[str, list[str]]:
+    dataset = Dataset.from_dict({"text": reviews})
+
+    def classify(batch):
+        outputs = emotion_pipeline(batch["text"])
+        return {"label": [o[0]["label"] for o in outputs]}
+
+    results = dataset.map(classify, batched=True, batch_size=64)
+
+    grouped = {}
+    for text, label in zip(results["text"], results["label"]):
+        grouped.setdefault(label, []).append(text)
+
+    return grouped

@@ -4,10 +4,6 @@ body {
 
 .chart-container {
     background-color: white;
-    width: 35%;
-    margin-left: 15%;
-    margin-top: 20px;
-    position: relative;
     text-align: center;
 }
 
@@ -26,9 +22,6 @@ canvas {
 .topic-description {
 background-color: #1f1f1f; /* Dark card background */
 border-radius: 0.5rem;
-width: 35%;
-margin-left: 15%;
-margin-top: 20px;
 }
 
 .list-group-item {
@@ -64,3 +57,19 @@ background-color: #f8f9fa;
 .hidden {
   display: none;
 }
+
+    .feature-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .feature-icon svg {
+      width: 2rem;
+      height: 2rem;
+      fill: white;
+    }
