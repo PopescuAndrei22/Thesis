@@ -4587,3 +4587,83 @@ json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 151 (char 5
 2025-06-03 14:25:37,326 | INFO | llm.py | Groq client initialized successfully.
 2025-06-03 14:25:37,326 | DEBUG | llm.py | Sending request to Groq API.
 2025-06-03 14:25:41,079 | INFO | llm.py | Received response from Groq API.
+2025-06-07 11:21:49,816 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 11:21:49,817 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 11:21:51,635 | INFO | llm.py | Received response from Groq API.
+2025-06-07 11:22:48,129 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 11:22:48,129 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 11:22:51,760 | INFO | llm.py | Received response from Groq API.
+2025-06-07 13:51:47,831 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 13:51:47,831 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 13:51:50,832 | INFO | llm.py | Received response from Groq API.
+2025-06-07 15:46:01,773 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 15:46:01,774 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 15:46:03,680 | INFO | llm.py | Received response from Groq API.
+2025-06-07 15:46:39,368 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 15:46:39,369 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 15:46:40,992 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:21:02,906 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:21:02,907 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:21:04,722 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:23:01,723 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:23:01,724 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:23:03,451 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:23:03,451 | ERROR | llm.py | JSONDecodeError: Expecting ',' delimiter: line 6 column 157 (char 643)
+2025-06-07 16:23:03,452 | ERROR | llm.py | Unexpected error during summary generation.
+Traceback (most recent call last):
+  File "C:\Users\Andrei\OneDrive - e-uvt.ro\Desktop\Thesis_PopescuAndreiAlexandru\nlp\llm.py", line 76, in generate_summary
+    return json.loads(json_str)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 157 (char 643)
+2025-06-07 16:24:48,832 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:24:48,832 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:24:50,524 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:26:03,028 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:26:03,029 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:26:04,799 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:28:10,518 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:28:10,518 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:28:11,956 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:33:37,528 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:33:37,529 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:33:39,386 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:34:17,798 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:34:17,799 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:34:19,407 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:36:51,149 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:36:51,149 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:36:52,784 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:36:52,784 | ERROR | llm.py | JSONDecodeError: Expecting ',' delimiter: line 6 column 119 (char 551)
+2025-06-07 16:36:52,785 | ERROR | llm.py | Unexpected error during summary generation.
+Traceback (most recent call last):
+  File "C:\Users\Andrei\OneDrive - e-uvt.ro\Desktop\Thesis_PopescuAndreiAlexandru\nlp\llm.py", line 76, in generate_summary
+    return json.loads(json_str)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Andrei\AppData\Local\Programs\Python\Python311\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 6 column 119 (char 551)
+2025-06-07 16:37:01,308 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:37:01,308 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:37:02,937 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:37:51,916 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:37:51,916 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:37:53,769 | INFO | llm.py | Received response from Groq API.
+2025-06-07 16:39:53,541 | INFO | llm.py | Groq client initialized successfully.
+2025-06-07 16:39:53,542 | DEBUG | llm.py | Sending request to Groq API.
+2025-06-07 16:39:55,260 | INFO | llm.py | Received response from Groq API.

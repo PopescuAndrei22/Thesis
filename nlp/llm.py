@@ -40,7 +40,7 @@ class TopicSummarizer:
             "Respond in valid **JSON format**. Each emotion should map to a list of topic summaries.\n"
             "Each topic summary must have two keys: \"topic_name\" and \"summary\".\n"
             "Use only double quotes for all strings and keys (as required in JSON).\n"
-            "Wrap your response in a code block marked with ```json for easy parsing.\n\n"
+            "Wrap your response in a code block marked with ```json for easy parsing. Make sure the JSON format is valid.\n\n"
         )
 
         for emotion, topics in emotion_topics.items():
