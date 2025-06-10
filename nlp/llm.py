@@ -25,22 +25,41 @@ class TopicSummarizer:
         self.client = Groq(api_key=self.api_key)
         logger.info("Groq client initialized successfully.")
 
-    def extract_json_block(self, text: str) -> str:
-        match = re.search(r'```json(.*?)```', text, re.DOTALL)
-        if match:
-            return match.group(1).strip()
-        else:
-            raise ValueError("No valid JSON block found")
+    def generate_comparison(self, topics1: dict, topics2: dict) -> str:
+        prompt = (
+            "You will compare two sets of extracted emotion topics from two datasets.\n"
+            "For each emotion present in either dataset, compare the main topics.\n"
+            "Mention similarities and differences, if there are any. The output has to be user-friendly and short.\n"
+            "Analyze based only on the emotion and topics\n"
+            "Only provide the plain text, no JSON or code blocks.\n\n"
+            f"Dataset 1:\n{json.dumps(topics1, indent=2)}\n\n"
+            f"Dataset 2:\n{json.dumps(topics2, indent=2)}"
+        )
+
+        try:
+            logger.debug("Sending comparison prompt to Groq API.")
+            response = self.client.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model="llama-3.3-70b-versatile",
+            )
+            comparison_text = response.choices[0].message.content
+            logger.info("Received comparison from Groq API.")
+            return comparison_text
+
+        except Exception as e:
+            logger.error(f"{type(e).__name__}: {e}")
+            logger.exception("Unexpected error during comparison generation.")
+            raise
     
     def generate_summary(self, emotion_topics: dict) -> dict:
 
         prompt = (
-            "You are analyzing customer reviews. For each emotion below, topics were extracted using LDA.\n"
+            "You are analyzing reviews. For each emotion below, topics were extracted using LDA.\n"
             "Generate a summary for each emotion, consisting of short topic names and descriptions.\n"
-            "Respond in valid **JSON format**. Each emotion should map to a list of topic summaries.\n"
+            "Respond in valid JSON format. Each emotion should map to a list of topic summaries.\n"
             "Each topic summary must have two keys: \"topic_name\" and \"summary\".\n"
             "Use only double quotes for all strings and keys (as required in JSON).\n"
-            "Wrap your response in a code block marked with ```json for easy parsing. Make sure the JSON format is valid.\n\n"
+            "Respond ONLY with raw JSON. Do not include markdown, code blocks, or any explanation text.\n\n"
         )
 
         for emotion, topics in emotion_topics.items():
@@ -51,7 +70,6 @@ class TopicSummarizer:
 
         prompt += (
             "Example format:\n"
-            "```json\n"
             "{\n"
             "  \"joy\": [\n"
             "    {\"topic_name\": \"Helpful staff\", \"summary\": \"Users liked the polite and helpful staff.\"},\n"
@@ -61,7 +79,7 @@ class TopicSummarizer:
             "    {\"topic_name\": \"Long wait\", \"summary\": \"Users complained about waiting times.\"}\n"
             "  ]\n"
             "}\n"
-            "```"
+            "Respond ONLY with valid JSON. DO NOT include markdown code blocks, explanations, or formatting. Use straight double quotes and no trailing commas."
         )
 
         try:
@@ -72,8 +90,10 @@ class TopicSummarizer:
             )
             summary = response.choices[0].message.content
             logger.info("Received response from Groq API.")
-            json_str = self.extract_json_block(summary)
-            return json.loads(json_str)
+            
+            summary = summary.replace("“", "\"").replace("”", "\"")
+
+            return json.loads(summary)
 
         except Exception as e:
             logger.error(f"{type(e).__name__}: {e}")

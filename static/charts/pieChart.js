@@ -1,16 +1,25 @@
-import { myPieChart, setMyPieChart } from '../state.js';
+import { results, setMyPieChart, destroyMyPieChart, pieCharts } from '../state.js';
 import { getRandomColor } from '../utils/colors.js';
 
-export const initializePieChart = () => {
-  const ctx = document.getElementById('myPieChart').getContext('2d');
+export const initializePieChart = (id) => {
+  const canvas = document.getElementById(`myPieChart-${id}`);
+  if (!canvas) {
+    console.error(`Canvas element myPieChart-${id} not found.`);
+    return;
+  }
+  const ctx = canvas.getContext('2d');
 
-  if (myPieChart) myPieChart.destroy();
+  destroyMyPieChart(id);
 
   const chart = new Chart(ctx, {
     type: 'pie',
     data: {
       labels: [],
-      datasets: [{ data: [], backgroundColor: [], hoverOffset: 4 }]
+      datasets: [{
+        data: [],
+        backgroundColor: [],
+        hoverOffset: 4
+      }]
     },
     options: {
       responsive: true,
@@ -20,15 +29,16 @@ export const initializePieChart = () => {
       }
     }
   });
-  setMyPieChart(chart);
+
+  setMyPieChart(id, chart);
 };
 
-export const updatePieChart = (results) => {
-  Object.entries(results).forEach(([emotion, data]) => {
-    myPieChart.data.labels.push(emotion);
-    myPieChart.data.datasets[0].backgroundColor.push(getRandomColor());
-    myPieChart.data.datasets[0].data.push(data.review_count);
+export const updatePieChart = (id) => {
+  Object.entries(results[id]).forEach(([emotion, data]) => {
+    pieCharts[id].data.labels.push(emotion);
+    pieCharts[id].data.datasets[0].backgroundColor.push(getRandomColor());
+    pieCharts[id].data.datasets[0].data.push(data.review_count);
   });
 
-  myPieChart.update();
+  pieCharts[id].update();
 };

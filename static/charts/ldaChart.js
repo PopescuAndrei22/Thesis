@@ -1,9 +1,14 @@
-import { ldaChart, setLdaChart } from '../state.js';
+import { setLdaChart, getLdaChart, destroyLdaChart, sharedState, ldaCharts } from '../state.js';
 
-export const initializeLdaChart = () => {
-  const ctx = document.getElementById('ldaChart').getContext('2d');
+export const initializeLdaChart = (id) => {
+  const canvas = document.getElementById(`ldaChart-${id}`);
+  if (!canvas) {
+    console.error(`Canvas element ldaChart-${id} not found.`);
+    return;
+  }
+  const ctx = canvas.getContext('2d');
 
-  if (ldaChart) ldaChart.destroy();
+  destroyLdaChart(id);
 
   const chart = new Chart(ctx, {
     type: 'bar',
@@ -27,13 +32,14 @@ export const initializeLdaChart = () => {
       }
     }
   });
-  setLdaChart(chart);
+
+  setLdaChart(id, chart);
 };
 
-export const updateLdaChartData = (chartData) => {
+export const updateLdaChartData = (chartData, id) => {
   const { labels, values } = chartData;
 
-  ldaChart.data.labels = labels;
-  ldaChart.data.datasets[0].data = values;
-  ldaChart.update();
+  ldaCharts[id].data.labels = labels;
+  ldaCharts[id].data.datasets[0].data = values;
+  ldaCharts[id].update();
 };

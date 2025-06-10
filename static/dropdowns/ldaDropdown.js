@@ -1,54 +1,59 @@
-import { indexDict, results } from '../state.js';
+import { indexDict, results, setMyPieChart, sharedState } from '../state.js';
 import { updateLdaChartData } from '../charts/ldaChart.js';
 
-export const addLdaDropdowns = (results) => {
-  document.querySelectorAll('#lda-chart .scrollable-dropdown a').forEach(item => {
+export const addLdaDropdowns = (id) => {
+  document.querySelectorAll(`#lda-chart-${id} .scrollable-dropdown-${id} a`).forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const emotion = item.innerText;
-      updateLdaChart(emotion);
+      updateLdaChart(id, emotion);
     });
   });
 };
 
-export const updateLdaChart = (emotion) => {
-  updateSelectedEmotionLda(emotion);
-  populateTopicDropdown(emotion);
-  bindTopicEventHandlers(emotion);
+export const updateLdaChart = (id, emotion) => {
+  updateSelectedEmotionLda(id, emotion);
+  populateTopicDropdown(id, emotion);
+  bindTopicEventHandlers(id, emotion);
+
+  const firstTopic = results[id][emotion].summary[0]?.topic_name;
+  if (firstTopic) {
+    updateTopicData(id, emotion, firstTopic);
+  }
 };
 
-const updateSelectedEmotionLda = (emotion) => {
-  document.getElementById('selected-emotion-lda-chart').innerText = emotion;
+const updateSelectedEmotionLda = (id, emotion) => {
+  document.getElementById(`selected-emotion-lda-chart-${id}`).innerText = emotion;
 };
 
-const populateTopicDropdown = (emotion) => {
-  document.querySelectorAll('.lda-dropdown').forEach(dropdown => {
+const populateTopicDropdown = (id, emotion) => {
+  document.querySelectorAll(`#lda-topic-dropdown-${id}`).forEach(dropdown => {
     dropdown.innerHTML = '';
 
-    results[emotion].summary.forEach((item, index) => {
+    results[id][emotion].summary.forEach((item, index) => {
       const li = document.createElement('li');
       li.innerHTML = `<a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">${item.topic_name}</a>`;
       dropdown.appendChild(li);
-      indexDict[item.topic_name] = index;
+      indexDict[id][item.topic_name] = index;
     });
   });
 };
 
-const bindTopicEventHandlers = (emotion) => {
-  document.querySelectorAll('.lda-dropdown a').forEach(item => {
+const bindTopicEventHandlers = (id, emotion) => {
+  document.querySelectorAll(`#lda-topic-dropdown-${id} a`).forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const topic = item.innerText;
-      updateTopicData(emotion, topic);
+      updateTopicData(id, emotion, topic);
     });
   });
 };
 
-const updateTopicData = (emotion, topic) => {
-  document.getElementById('selected-topic-lda-chart').innerText = topic;
+const updateTopicData = (id, emotion, topic) => {
+  document.getElementById(`selected-topic-lda-chart-${id}`).innerText = topic;
 
-  const topicIndex = indexDict[topic];
-  const topicObj = results[emotion].topics[topicIndex];
+  const topicIndex = indexDict[id][topic];
+  const topicObj = results[id][emotion].topics[topicIndex];
   if (!topicObj) return;
 
   const entries = Object.entries(topicObj)
@@ -58,5 +63,5 @@ const updateTopicData = (emotion, topic) => {
   const labels = entries.map(([k]) => k);
   const values = entries.map(([, v]) => parseFloat(v.toFixed(2)));
 
-  updateLdaChartData({ labels, values });
+  updateLdaChartData({ labels, values }, id);
 };

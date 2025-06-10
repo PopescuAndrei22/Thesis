@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+  <div class="loader-container" id="loader-container">
+    <div class="loader"></div>
+  </div>
+
+  <a href="/" class="bg-light btn btn-outline-secondary default-hidden hidden button-home">
+    Home
+  </a>
+
+  <div class="default-hidden hidden container my-5">
+    <div class="row">
+      <!-- Column for First File -->
+      <div class="col-lg-6">
+        <!-- LDA Chart Section -->
+        <div class="lda-section mb-5" id="lda-chart-1">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 p-3 bg-white"
+          >
+            <h4 class="mb-0">LDA Topics (File 1)</h4>
+            <!-- Emotion Dropdown -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Emoție: <span id="selected-emotion-lda-chart-1"></span>
+              </button>
+              <div class="dropdown-menu">
+                <form class="p-2 mb-2 border-bottom">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Type to filter..."
+                  />
+                </form>
+                <ul class="list-unstyled mb-0 scrollable-dropdown-1"></ul>
+              </div>
+            </div>
+
+            <!-- Topic Dropdown -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Topic: <span id="selected-topic-lda-chart-1"></span>
+              </button>
+              <ul class="dropdown-menu lda-dropdown" id="lda-topic-dropdown-1"></ul>
+            </div>
+          </div>
+          <div class="chart-container bg-white p-3 rounded shadow-sm">
+            <canvas id="ldaChart-1"></canvas>
+          </div>
+        </div>
+
+        <!-- Pie Chart + Summary -->
+        <div class="default-hidden hidden topic-wrapper mb-5 px-2" id="topic-summaries-1">
+          <div class="d-flex flex-column gap-4">
+            <div class="chart-container bg-white rounded shadow-sm p-4">
+              <canvas id="myPieChart-1"></canvas>
+            </div>
+            <div class="topic-description bg-white rounded shadow-sm p-4">
+              <div
+                class="d-flex flex-wrap align-items-center justify-content-between mb-3"
+              >
+                <h5 class="mb-0 fw-bold text-dark">💡 Rezumatul recenziilor (File 1)</h5>
+                <div class="dropdown mt-2 mt-md-0">
+                  <button
+                    class="btn btn-outline-dark dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    Emoție: <span id="selected-emotion-1"></span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <form class="p-2 mb-2 border-bottom">
+                      <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Type to filter..."
+                      />
+                    </form>
+                    <ul class="list-unstyled mb-0 scrollable-dropdown-1"></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group" id="emotion-summary-list-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column for Second File -->
+      <div class="col-lg-6">
+        <!-- LDA Chart Section -->
+        <div class="lda-section mb-5" id="lda-chart-2">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 p-3 bg-white"
+          >
+            <h4 class="mb-0">LDA Topics (File 2)</h4>
+            <!-- Emotion Dropdown -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Emoție: <span id="selected-emotion-lda-chart-2"></span>
+              </button>
+              <div class="dropdown-menu">
+                <form class="p-2 mb-2 border-bottom">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Type to filter..."
+                  />
+                </form>
+                <ul class="list-unstyled mb-0 scrollable-dropdown-2"></ul>
+              </div>
+            </div>
+
+            <!-- Topic Dropdown -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                Topic: <span id="selected-topic-lda-chart-2"></span>
+              </button>
+              <ul class="dropdown-menu lda-dropdown" id="lda-topic-dropdown-2"></ul>
+            </div>
+          </div>
+          <div class="chart-container bg-white p-3 rounded shadow-sm">
+            <canvas id="ldaChart-2"></canvas>
+          </div>
+        </div>
+
+        <!-- Pie Chart + Summary -->
+        <div class="default-hidden hidden topic-wrapper mb-5 px-2" id="topic-summaries-2">
+          <div class="d-flex flex-column gap-4">
+            <div class="chart-container bg-white rounded shadow-sm p-4">
+              <canvas id="myPieChart-2"></canvas>
+            </div>
+            <div class="topic-description bg-white rounded shadow-sm p-4">
+              <div
+                class="d-flex flex-wrap align-items-center justify-content-between mb-3"
+              >
+                <h5 class="mb-0 fw-bold text-dark">💡 Rezumatul recenziilor (File 2)</h5>
+                <div class="dropdown mt-2 mt-md-0">
+                  <button
+                    class="btn btn-outline-dark dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    Emoție: <span id="selected-emotion-2"></span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <form class="p-2 mb-2 border-bottom">
+                      <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Type to filter..."
+                      />
+                    </form>
+                    <ul class="list-unstyled mb-0 scrollable-dropdown-2"></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group" id="emotion-summary-list-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison-results-wrapper mb-5 px-2 default-hidden hidden">
+    <div class="bg-white rounded shadow-sm p-4">
+        <h4 class="mb-3 fw-bold text-dark text-center">📊 Comparative Insights from AI</h4>
+        <p class="text-muted text-center">Discover what stands out when comparing your two review sets.</p>
+        <hr class="mb-4">
+        <div class="text-center p-5">
+            <p id="llm-comparison-section"></p>
+        </div>
+    </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="{{ url_for('static', filename='comparasion.js') }}"></script>
+</body>
+</html>

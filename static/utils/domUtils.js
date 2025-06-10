@@ -1,16 +1,21 @@
-import { results } from '../state.js';
+import { results, sharedState } from '../state.js';
 import { updateSummaries } from '../events/summaryEvents.js';
 import { updateLdaChart } from '../dropdowns/ldaDropdown.js';
 
-export const showResults = () => {
+export const showResults = (id) => {
   document.getElementById("loader-container").classList.add("hidden");
-  document.getElementById("topic-wrapper").classList.remove("hidden");
-  document.getElementById("lda-chart").classList.remove("hidden");
-  document.getElementById("nav-bar").classList.remove("hidden");
+
+  document.querySelectorAll(".default-hidden").forEach(function(element) {
+      element.classList.remove("hidden");
+  });
 };
 
-export const defaultValuesComponents = () => {
-  const emotion = Object.keys(results)[0];
-  updateSummaries(emotion);
-  updateLdaChart(emotion);
+export const defaultValuesComponents = (id) => {
+  const emotion = Object.keys(results[id])[0];
+  updateSummaries(id, emotion);
+  updateLdaChart(id, emotion);
+};
+
+export const setComparasionText = (generatedText) => {
+  document.getElementById('llm-comparison-section').innerHTML = generatedText;
 };

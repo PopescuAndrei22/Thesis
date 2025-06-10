@@ -3,15 +3,6 @@ from transformers import pipeline
 import torch
 from datasets import Dataset
 
-goemotions_pipeline = pipeline(
-    "text-classification",
-    model="joeddav/distilbert-base-uncased-go-emotions-student",
-    top_k=1,
-    truncation=True,
-    batch_size=256,
-    device=0
-)
-
 emotion_pipeline = pipeline(
     "text-classification",
     model="bhadresh-savani/distilbert-base-uncased-emotion",
@@ -35,17 +26,8 @@ def sentiment_textblob(reviews: list[str]) -> dict[str, list[str]]:
 
     return result
 
-def sentiment_goemotions(reviews: list[str]) -> dict[str, list[str]]:
-    result = {}
-    predictions = goemotions_pipeline(reviews)
 
-    for review, pred in zip(reviews, predictions):
-        emotion = pred[0]["label"]
-        result.setdefault(emotion, []).append(review)
-
-    return result
-
-def sentiment_fast_emotion(reviews: list[str]) -> dict[str, list[str]]:
+def sentiment_distilbert(reviews: list[str]) -> dict[str, list[str]]:
     dataset = Dataset.from_dict({"text": reviews})
 
     def classify(batch):

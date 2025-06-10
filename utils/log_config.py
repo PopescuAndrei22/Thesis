@@ -11,11 +11,11 @@ def setup_logger(name: str, log_file: str = "logs/app.log") -> logging.Logger:
 
     formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
 
-    # File handler
+    # file handler
     file_handler = logging.FileHandler(log_file)
     file_handler.setFormatter(formatter)
 
-    # Console handler
+    # console handler
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
 
@@ -23,6 +23,6 @@ def setup_logger(name: str, log_file: str = "logs/app.log") -> logging.Logger:
     logger.setLevel(level)
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
-    logger.propagate = False  # Avoid duplicate logs
+    logger.propagate = False  # avoid duplicate logs
 
     return logger
