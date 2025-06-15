@@ -83,8 +83,8 @@ def get_comparasion_results():
     filename1 = session_data["file1"]["filename"]
     emotion1 = session_data["file1"]["emotion"]
 
-    filename2 = session_data["file1"]["filename"]
-    emotion2 = session_data["file1"]["emotion"]
+    filename2 = session_data["file2"]["filename"]
+    emotion2 = session_data["file2"]["emotion"]
 
     column1 = session_data["file1"]["column"]
     column2 = session_data["file2"]["column"]

@@ -29,8 +29,8 @@ class TopicSummarizer:
         prompt = (
             "You will compare two sets of extracted emotion topics from two datasets.\n"
             "For each emotion present in either dataset, compare the main topics.\n"
-            "Mention similarities and differences, if there are any. The output has to be user-friendly and short.\n"
-            "Analyze based only on the emotion and topics\n"
+            "Mention similarities and differences, if there are any. The output has to be user-friendly and short. Mention only the important parts.\n"
+            "Analyze based only on the emotion and the LDA topics extracted.\n"
             "Only provide the plain text, no JSON or code blocks.\n\n"
             f"Dataset 1:\n{json.dumps(topics1, indent=2)}\n\n"
             f"Dataset 2:\n{json.dumps(topics2, indent=2)}"

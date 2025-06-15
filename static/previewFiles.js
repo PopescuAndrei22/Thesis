@@ -10,7 +10,7 @@
 
       const allowedTypes = ['application/json', 'text/csv'];
       if (!allowedTypes.includes(file.type) && !file.name.endsWith('.csv') && !file.name.endsWith('.json')) {
-        alert('Doar fisiere CSV si JSON sunt acceptate.');
+        alert('Only CSV and JSON files are accepted.');
         fileInput.value = '';
         return;
       }
@@ -18,7 +18,7 @@
       const previewContainer = document.getElementById(previewContainerId);
       const dropdown = document.getElementById(dropdownId);
       previewContainer.innerHTML = '';
-      dropdown.innerHTML = '<option value="">Selecteaza coloana pentru analiza</option>';
+      dropdown.innerHTML = '<option value="">Select the column for analysis</option>';
 
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -51,7 +51,7 @@
           try {
             const data = JSON.parse(content);
             if (!Array.isArray(data) || data.length === 0 || typeof data[0] !== 'object') {
-              previewContainer.innerHTML = 'JSON invalid sau format nepotrivit pentru previzualizare.';
+              previewContainer.innerHTML = 'JSON is invalid.';
               return;
             }
             const keys = Object.keys(data[0]);
@@ -69,7 +69,7 @@
               dropdown.appendChild(option);
             });
           } catch (error) {
-            previewContainer.innerHTML = 'Eroare la parsarea JSON-ului.';
+            previewContainer.innerHTML = 'Error while parsing JSON';
           }
         }
       };
